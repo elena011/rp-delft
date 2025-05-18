@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def plot_predicted_vs_true(true_age, predicted_age):
+def plot_predicted_vs_true(true_age, predicted_age, colour):
     """
     Plots predicted age vs. true chronological age.
 
@@ -10,7 +10,7 @@ def plot_predicted_vs_true(true_age, predicted_age):
     - predicted_age (array-like): Predicted ages from a model.
     """
     plt.figure(figsize=(6, 6))
-    sns.scatterplot(x=true_age, y=predicted_age, alpha=0.6)
+    sns.scatterplot(x=true_age, y=predicted_age, alpha=0.6, color=colour)
 
     # Plot the diagonal reference line
     min_age = min(min(true_age), min(predicted_age))
