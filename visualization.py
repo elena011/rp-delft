@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def plot_predicted_vs_true(true_age, predicted_age, colour):
+def plot_predicted_vs_true(true_age, predicted_age, colour, model_name):
     """
     Plots predicted age vs. true chronological age.
 
@@ -19,7 +19,7 @@ def plot_predicted_vs_true(true_age, predicted_age, colour):
 
     plt.xlabel("True Age")
     plt.ylabel("Predicted Age")
-    plt.title("Predicted vs. True Age")
+    plt.title("Predicted vs. True Age -- " + model_name)
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
