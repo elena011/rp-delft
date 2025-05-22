@@ -17,9 +17,9 @@ def plot_predicted_vs_true(true_age, predicted_age, colour, model_name):
     max_age = max(max(true_age), max(predicted_age))
     plt.plot([min_age, max_age], [min_age, max_age], linestyle='--', color='red', label='Perfect Prediction')
 
-    plt.xlabel("True Age")
-    plt.ylabel("Predicted Age")
-    plt.title("Predicted vs. True Age -- " + model_name)
+    plt.xlabel("True Age", fontsize=16)
+    plt.ylabel("Predicted Age", fontsize=16)
+    plt.title("Predicted vs. True Age -- " + model_name, fontsize=16)
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
