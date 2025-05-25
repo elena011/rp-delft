@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
+import pandas as pd
 
 def plot_predicted_vs_true(true_age, predicted_age, colour, model_name):
     """
@@ -25,6 +27,46 @@ def plot_predicted_vs_true(true_age, predicted_age, colour, model_name):
     plt.legend()
     plt.show()
 
+
+def plot_feature_importance(model, feature_names, top_n=20, title='Feature Importance', plot=True):
+    """
+    Get or plot feature importance for models with .coef_ or .feature_importances_ attribute.
+
+    Parameters:
+        model: Trained model (e.g., LinearRegression, RandomForest)
+        feature_names: List or array of feature names
+        top_n: Number of top features to return
+        title: Title of the plot (if plotting)
+        plot: If True, plot the feature importance bar chart. If False, just return the DataFrame.
+
+    Returns:
+        DataFrame of top features and their importance.
+    """
+    # Determine importance type
+    if hasattr(model, 'coef_'):
+        importance_values = model.coef_
+    elif hasattr(model, 'feature_importances_'):
+        importance_values = model.feature_importances_
+    else:
+        raise ValueError("Model must have either .coef_ or .feature_importances_ attribute.")
+
+    importance_df = pd.DataFrame({
+        'Feature': feature_names,
+        'Importance': importance_values,
+        'AbsImportance': np.abs(importance_values)
+    }).sort_values(by='AbsImportance', ascending=False).head(top_n)
+
+    if plot:
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='Importance', y='Feature', data=importance_df,
+                    palette=['#1d5eaa' if val > 0 else '#b22222' for val in importance_df['Importance']])
+        plt.title(title)
+        plt.xlabel('Coefficient')
+        plt.ylabel('CpG Site')
+        plt.tight_layout()
+        plt.show()
+
+    return importance_df
 
 def plot_residuals(true_age, predicted_age):
     """
